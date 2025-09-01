@@ -2,7 +2,7 @@
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey.svg)](https://github.com/yourname/nether/releases)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macOS%20%7C%20windows-lightgrey.svg)](https://github.com/amoz0x/nether/releases)
 
 **Nether** is a lightning-fast, decentralized subdomain enumeration tool that creates a global peer-to-peer intelligence network using IPFS. Every scan contributes to a shared database that benefits all users.
 
@@ -11,7 +11,7 @@
 ### One-Click Installation (Linux)
 ```bash
 # Download and install
-curl -sSL https://raw.githubusercontent.com/yourname/nether/main/install-linux.sh | bash
+curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-linux.sh | bash
 
 # Start scanning
 nether sub example.com
@@ -20,7 +20,7 @@ nether sub example.com
 ### Manual Installation
 ```bash
 # Download binary for your platform
-wget https://github.com/yourname/nether/releases/download/v0.1.0/nether-linux-amd64
+wget https://github.com/amoz0x/nether/releases/download/v0.1.0/nether-linux-amd64
 chmod +x nether-linux-amd64
 sudo mv nether-linux-amd64 /usr/local/bin/nether
 
