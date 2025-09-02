@@ -59,9 +59,15 @@ if command -v nether &> /dev/null; then
     echo "🎉 Installation successful!"
     echo ""
     echo "📖 Quick start:"
-    echo "  nether sub example.com"
-    echo "  nether status"
-    echo "  nether --help"
+    echo "  nether sub example.com       # Smart scan with auto-setup"
+    echo "  nether status               # Check network health"
+    echo ""
+    echo "🚀 For optimal performance:"
+    echo "  1. Install IPFS: https://ipfs.io/docs/install/"
+    echo "  2. Run: ipfs daemon &"
+    echo "  3. First scan will auto-initialize the network"
+    echo ""
+    echo "💡 The network will auto-bootstrap on first use!"
 else
     echo "⚠️  Please restart your terminal or run: source ~/.bashrc"
 fi

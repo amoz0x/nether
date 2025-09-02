@@ -1,4 +1,27 @@
-# 🌟 Nether - Decentralized Subdomain Intelligence Network
+# 🌟 Nethe### One-Click Installation (Linux/macOS)
+```bash
+# Download and install
+curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-simple.sh | bash
+
+# Start scanning (auto-initializes on first run)
+nether sub example.com
+```
+
+### Optimal Setup (Recommended)
+```bash
+# 1. Install IPFS for full P2P mode
+wget https://dist.ipfs.io/kubo/v0.22.0/kubo_v0.22.0_linux-amd64.tar.gz
+tar -xf kubo_v0.22.0_linux-amd64.tar.gz
+sudo install kubo/ipfs /usr/local/bin/
+
+# 2. Start IPFS daemon
+ipfs init
+ipfs daemon &
+
+# 3. Install and run Nether (will auto-bootstrap)
+curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-simple.sh | bash
+nether sub target.com  # Automatically initializes network on first run
+```bdomain Intelligence Network
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
