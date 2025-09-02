@@ -1,4 +1,4 @@
-module github.com/yourname/nether
+module github.com/amoz0x/nether
 
 go 1.21
 

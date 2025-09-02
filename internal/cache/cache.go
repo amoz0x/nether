@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yourname/nether/internal/util"
+	"github.com/amoz0x/nether/internal/util"
 )
 
 // Row represents a subdomain entry in the cache.

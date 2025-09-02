@@ -10,10 +10,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/yourname/nether/internal/cache"
-	"github.com/yourname/nether/internal/merge"
-	"github.com/yourname/nether/internal/p2p"
-	"github.com/yourname/nether/internal/scan"
+	"github.com/amoz0x/nether/internal/cache"
+	"github.com/amoz0x/nether/internal/merge"
+	"github.com/amoz0x/nether/internal/p2p"
+	"github.com/amoz0x/nether/internal/scan"
 )
 
 const Version = "v0.1.0"

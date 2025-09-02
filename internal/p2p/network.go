@@ -8,8 +8,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/yourname/nether/internal/cache"
-	"github.com/yourname/nether/internal/ipfs"
+	"github.com/amoz0x/nether/internal/cache"
+	"github.com/amoz0x/nether/internal/ipfs"
 )
 
 // NetworkDB represents the decentralized subdomain database
@@ -92,15 +92,12 @@ func (n *NetworkDB) PublishDomain(domain string, subdomains []cache.Row) (string
 	
 	// Quick connectivity check first
 	if !n.ipfsClient.IsAvailable() {
-		log.Printf("IPFS not available, using local hash generation")
-		hash = n.mockIPFSPublish(data)
-	} else {
-		hash, err = n.ipfsClient.Publish(data)
-		if err != nil {
-			// Fallback to local hash when IPFS node unavailable
-			log.Printf("IPFS publish failed, using local hash generation")
-			hash = n.mockIPFSPublish(data)
-		}
+		return "", fmt.Errorf("IPFS node unavailable - please run 'ipfs daemon' or use --network=false")
+	}
+	
+	hash, err = n.ipfsClient.Publish(data)
+	if err != nil {
+		return "", fmt.Errorf("failed to publish to IPFS: %v", err)
 	}
 	log.Printf("Generated content hash: %s", hash)
 	
@@ -142,37 +139,17 @@ func (n *NetworkDB) queryIPFSNetwork(domain string) ([]string, error) {
 	return subdomains, nil
 }
 
-// mockIPFSPublish simulates IPFS publishing (would use real IPFS API)
-func (n *NetworkDB) mockIPFSPublish(data []byte) string {
-	// In real implementation, this would:
-	// 1. Connect to local IPFS node or use HTTP API
-	// 2. ipfs.Add(data)
-	// 3. Return actual IPFS hash
-	
-	// For now, generate a mock hash based on data length and timestamp
-	return fmt.Sprintf("Qm%x%d", len(data), time.Now().Unix()%10000)
-}
-
 // getGlobalIndex retrieves the current global domain index from IPFS
 func (n *NetworkDB) getGlobalIndex() (*NetworkIndex, error) {
 	// Well-known hash for global subdomain index
-	globalIndexHash := "QmGlobalSubdomainIndexV1" // In production, this would be published and known
+	// This will be set by the bootstrap process
+	globalIndexHash := "QmGlobalSubdomainIndexV1" // This will be replaced with real hash
 	
 	// Try to fetch from IPFS
 	data, err := n.ipfsClient.Fetch(globalIndexHash)
 	if err != nil {
-		// Normal fallback when IPFS unavailable - not an error
-		// Return bootstrap index for immediate functionality
-		return &NetworkIndex{
-			Domains: map[string]string{
-				"google.com":  "QmGoogleSubdomains123",
-				"github.com":  "QmGithubSubdomains456", 
-				"example.com": "QmExampleSubdomains789",
-				"tesla.com":   "QmTeslaSubdomains101112",
-			},
-			LastUpdated: time.Now(),
-			PeerID:      "QmBootstrapPeer",
-		}, nil
+		// If we can't fetch the global index, we need to bootstrap
+		return nil, fmt.Errorf("global index not available - network needs initialization")
 	}
 
 	// Parse the fetched index
@@ -219,24 +196,10 @@ func (n *NetworkDB) GetNetworkStats() (map[string]interface{}, error) {
 
 // fetchDomainRecord retrieves a domain record from IPFS by hash
 func (n *NetworkDB) fetchDomainRecord(hash string) (*DomainRecord, error) {
-	// Try to fetch from IPFS using real client
+	// Fetch from IPFS using real client
 	data, err := n.ipfsClient.Fetch(hash)
 	if err != nil {
-		// Normal fallback when IPFS unavailable - return mock data
-		return &DomainRecord{
-			Domain: "example.com",
-			Subdomains: []cache.Row{
-				{Sub: "www.example.com", FirstSeen: time.Now().Format(time.RFC3339)},
-				{Sub: "api.example.com", FirstSeen: time.Now().Format(time.RFC3339)},
-				{Sub: "mail.example.com", FirstSeen: time.Now().Format(time.RFC3339)},
-				{Sub: "ftp.example.com", FirstSeen: time.Now().Format(time.RFC3339)},
-				{Sub: "blog.example.com", FirstSeen: time.Now().Format(time.RFC3339)},
-			},
-			LastUpdated:  time.Now(),
-			Contributors: []string{"QmPeer1", "QmPeer2"},
-			IPFSHash:     hash,
-			Version:      1,
-		}, nil
+		return nil, fmt.Errorf("failed to fetch domain record %s: %v", hash, err)
 	}
 
 	// Parse the JSON data

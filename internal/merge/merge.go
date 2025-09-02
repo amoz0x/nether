@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/yourname/nether/internal/cache"
+	"github.com/amoz0x/nether/internal/cache"
 )
 
 // Row is an alias for cache.Row for convenience.

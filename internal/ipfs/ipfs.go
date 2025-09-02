@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/yourname/nether/internal/cache"
-	"github.com/yourname/nether/internal/manifest"
-	"github.com/yourname/nether/internal/merge"
+	"github.com/amoz0x/nether/internal/cache"
+	"github.com/amoz0x/nether/internal/manifest"
+	"github.com/amoz0x/nether/internal/merge"
 )
 
 // FetchShardToCache downloads a shard from IPFS gateways and saves it to cache.

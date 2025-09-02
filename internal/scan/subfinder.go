@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yourname/nether/internal/util"
+	"github.com/amoz0x/nether/internal/util"
 )
 
 // sfRow represents a JSON line from subfinder output.
