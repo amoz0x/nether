@@ -40,12 +40,21 @@ func LoadLocalOrDefault() Manifest {
 	// Try to read existing manifest
 	data, err := os.ReadFile(manifestPath)
 	if err != nil {
-		// Return default manifest if file doesn't exist
+		// Return enhanced default manifest for open-source distribution
 		return Manifest{
 			Roots: make(map[string]RootEnt),
 			Gateways: []string{
+				// Primary gateways - fast, reliable
 				"https://ipfs.io/ipfs/",
 				"https://cloudflare-ipfs.com/ipfs/",
+				"https://gateway.pinata.cloud/ipfs/",
+				// Decentralized gateways - community operated  
+				"https://dweb.link/ipfs/",
+				"https://ipfs.eth.aragon.network/ipfs/",
+				"https://hardbin.com/ipfs/",
+				// Backup gateways
+				"https://ipfs.fleek.co/ipfs/",
+				"https://gateway.temporal.cloud/ipfs/",
 			},
 		}
 	}
@@ -56,17 +65,35 @@ func LoadLocalOrDefault() Manifest {
 		return Manifest{
 			Roots: make(map[string]RootEnt),
 			Gateways: []string{
+				// Primary gateways - fast, reliable
 				"https://ipfs.io/ipfs/",
 				"https://cloudflare-ipfs.com/ipfs/",
+				"https://gateway.pinata.cloud/ipfs/",
+				// Decentralized gateways - community operated  
+				"https://dweb.link/ipfs/",
+				"https://ipfs.eth.aragon.network/ipfs/",
+				"https://hardbin.com/ipfs/",
+				// Backup gateways
+				"https://ipfs.fleek.co/ipfs/",
+				"https://gateway.temporal.cloud/ipfs/",
 			},
 		}
 	}
 	
-	// Ensure gateways are set
+	// Ensure gateways are set with comprehensive list
 	if len(manifest.Gateways) == 0 {
 		manifest.Gateways = []string{
+			// Primary gateways - fast, reliable
 			"https://ipfs.io/ipfs/",
 			"https://cloudflare-ipfs.com/ipfs/",
+			"https://gateway.pinata.cloud/ipfs/",
+			// Decentralized gateways - community operated
+			"https://dweb.link/ipfs/",
+			"https://ipfs.eth.aragon.network/ipfs/",
+			"https://hardbin.com/ipfs/",
+			// Backup gateways
+			"https://ipfs.fleek.co/ipfs/",
+			"https://gateway.temporal.cloud/ipfs/",
 		}
 	}
 	
