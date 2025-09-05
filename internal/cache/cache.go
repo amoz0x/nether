@@ -187,6 +187,13 @@ func PrintJSON(subs []string) {
 	fmt.Println(string(data))
 }
 
+// PrintCSV prints subdomains in CSV format.
+func PrintCSV(subs []string) {
+	for _, sub := range subs {
+		fmt.Println(sub)
+	}
+}
+
 // ListDomains returns a list of all domains that have cached data
 func (c *Cache) ListDomains() []string {
 	cachePath := filepath.Join(c.Base, "cache")

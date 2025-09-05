@@ -1,4 +1,20 @@
-# 🌟 Nethe### One-Click Installation (Linux/macOS)
+<div align="center">
+  <img src="logo.png" alt="Nether Logo" width="200" height="200">
+  
+  # 🌟 Nether
+  
+  **Decentralized Subdomain Enumeration with IPFS Caching**
+  
+  [![Go](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
+  [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+  [![Version](https://img.shields.io/badge/Version-v1.0.0--enterprise-purple.svg)](https://github.com/amoz0x/nether/releases)
+</div>
+
+---
+
+## 🚀 Quick Start
+
+### One-Click Installation (Linux/macOS)
 ```bash
 # Download and install
 curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-simple.sh | bash
