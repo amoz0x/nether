@@ -1,43 +1,111 @@
-<div align="center">
-  <img src="logo.png" alt="Nether Logo" width="200" height="200">
-  
-  # 🌟 Nether
-  
-  **Decentralized Subdomain Enumeration with IPFS Caching**
-  
-  [![Go](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
-  [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/Version-v1.0.0--enterprise-purple.svg)](https://github.com/amoz0x/nether/releases)
-</div>
+# nether v1.0.0
+
+⚡ Lightning-fast decentralized subdomain enumeration tool.
+
+## 🚀 Quick Installation
+
+### Option 1: Download Binary (Recommended)
+```bash
+# Download latest release for macOS
+curl -L https://github.com/amoz0x/nether/releases/latest/download/nether-darwin-amd64 -o nether
+chmod +x nether
+sudo mv nether /usr/local/bin/
+
+# Download latest release for Linux
+curl -L https://github.com/amoz0x/nether/releases/latest/download/nether-linux-amd64 -o nether
+chmod +x nether
+sudo mv nether /usr/local/bin/
+
+# Verify installation
+nether --version
+```
+
+### Option 2: Install from Source
+```bash
+# Prerequisites: Go 1.21+
+go install github.com/amoz0x/nether/cmd/nether@latest
+```
+
+### Option 3: Build Locally
+```bash
+git clone https://github.com/amoz0x/nether.git
+cd nether
+go build -o nether ./cmd/nether
+sudo mv nether /usr/local/bin/
+```
+
+## ⚡ Usage
+
+```bash
+# Scan a domain (checks global network first)
+nether sub example.com
+
+# Force fresh scan
+nether sub example.com --rescan
+
+# Output in JSON format
+nether sub example.com -o json
+
+# CSV format
+nether sub example.com -o csv
+```
+
+## 🌐 Global Network
+
+nether automatically:
+- **Checks global P2P network** for existing scans (instant results)
+- **Falls back to local cache** if available
+- **Performs live scan** and shares results globally
+
+No configuration needed - it just works!
+
+## 📊 Example Output
+
+```
+$ nether sub google.com
+
+mail.google.com
+maps.google.com
+drive.google.com
+docs.google.com
+...
+─────────────────────────────────────────────
+2474 subdomains • global network • 2025-09-06 00:07:29 • ⚡ 5ms
+```
+
+## 🔧 Requirements
+
+- **macOS/Linux** (Windows support coming soon)
+- **No additional dependencies** required
+- **Optional**: subfinder installed for enhanced scanning
+
+## 📈 Performance
+
+- ⚡ **Sub-second** results for cached/network data
+- 🌍 **Global sharing** - benefit from worldwide community scans
+- 💾 **Smart caching** - never scan the same domain twice
+- 🚀 **Lightning fast** - built for speed
+
+## 🛠️ Development
+
+```bash
+# Clone and build
+git clone https://github.com/amoz0x/nether.git
+cd nether
+go mod tidy
+go build -o nether ./cmd/nether
+
+# Run tests
+go test ./...
+```
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🚀 Quick Start
-
-### One-Click Installation (Linux/macOS)
-```bash
-# Download and install
-curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-simple.sh | bash
-
-# Start scanning (auto-initializes on first run)
-nether sub example.com
-```
-
-### Optimal Setup (Recommended)
-```bash
-# 1. Install IPFS for full P2P mode
-wget https://dist.ipfs.io/kubo/v0.22.0/kubo_v0.22.0_linux-amd64.tar.gz
-tar -xf kubo_v0.22.0_linux-amd64.tar.gz
-sudo install kubo/ipfs /usr/local/bin/
-
-# 2. Start IPFS daemon
-ipfs init
-ipfs daemon &
-
-# 3. Install and run Nether (will auto-bootstrap)
-curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install-simple.sh | bash
-nether sub target.com  # Automatically initializes network on first run
-```bdomain Intelligence Network
+Made with ⚡ for the security communitybdomain Intelligence Network
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)

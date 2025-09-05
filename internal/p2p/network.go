@@ -237,6 +237,43 @@ func (n *NetworkDB) updateGlobalIndex(domain, hash string) error {
 	return nil
 }
 
+// ListAvailableDomains returns all domains available in the global network
+func (n *NetworkDB) ListAvailableDomains() ([]DomainInfo, error) {
+	index, err := n.getGlobalIndex()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get global index: %v", err)
+	}
+
+	domains := make([]DomainInfo, 0, len(index.Domains))
+	for domain, hash := range index.Domains {
+		// Try to get additional info about the domain
+		info := DomainInfo{
+			Domain:   domain,
+			IPFSHash: hash,
+		}
+
+		// Try to fetch record to get subdomain count and last updated
+		if record, err := n.fetchDomainRecord(hash); err == nil {
+			info.SubdomainCount = len(record.Subdomains)
+			info.LastUpdated = record.LastUpdated
+			info.Contributors = record.Contributors
+		}
+
+		domains = append(domains, info)
+	}
+
+	return domains, nil
+}
+
+// DomainInfo represents information about a domain in the network
+type DomainInfo struct {
+	Domain         string    `json:"domain"`
+	IPFSHash       string    `json:"ipfs_hash"`
+	SubdomainCount int       `json:"subdomain_count"`
+	LastUpdated    time.Time `json:"last_updated"`
+	Contributors   []string  `json:"contributors"`
+}
+
 // SyncWithNetwork synchronizes local cache with the IPFS network
 func (n *NetworkDB) SyncWithNetwork(ctx context.Context) error {
 	log.Println("Starting network synchronization...")
