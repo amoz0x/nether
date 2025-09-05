@@ -4,7 +4,18 @@
 
 ## 🚀 Quick Installation
 
-### Option 1: Download Binary (Recommended)
+### Option 1: One-Line Install (Recommended)
+```bash
+# Installs nether + all dependencies automatically
+curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install.sh | bash
+```
+**What gets installed:**
+- ✅ nether binary for your platform
+- ✅ subfinder (enhanced scanning engine)  
+- ✅ Go runtime (if not present)
+- ✅ Required system tools (curl, unzip, etc.)
+
+### Option 2: Manual Download
 ```bash
 # Download latest release for macOS
 curl -L https://github.com/amoz0x/nether/releases/latest/download/nether-darwin-amd64 -o nether
@@ -20,18 +31,10 @@ sudo mv nether /usr/local/bin/
 nether --version
 ```
 
-### Option 2: Install from Source
+### Option 3: Build from Source
 ```bash
 # Prerequisites: Go 1.21+
 go install github.com/amoz0x/nether/cmd/nether@latest
-```
-
-### Option 3: Build Locally
-```bash
-git clone https://github.com/amoz0x/nether.git
-cd nether
-go build -o nether ./cmd/nether
-sudo mv nether /usr/local/bin/
 ```
 
 ## ⚡ Usage
@@ -76,8 +79,8 @@ docs.google.com
 ## 🔧 Requirements
 
 - **macOS/Linux** (Windows support coming soon)
-- **No additional dependencies** required
-- **Optional**: subfinder installed for enhanced scanning
+- **No manual setup required** - installation script handles everything
+- **Automatic dependency management** - Go, subfinder, and tools installed automatically
 
 ## 📈 Performance
 
@@ -97,6 +100,49 @@ go build -o nether ./cmd/nether
 
 # Run tests
 go test ./...
+```
+
+## 🔧 Troubleshooting
+
+### Installation Issues
+```bash
+# If installation fails, try manual dependency installation:
+
+# Install Go manually
+curl -L https://golang.org/dl/go1.21.3.linux-amd64.tar.gz | sudo tar -C /usr/local -xz
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+source ~/.bashrc
+
+# Install subfinder manually  
+go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+
+# Retry nether installation
+curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install.sh | bash
+```
+
+### Runtime Issues
+```bash
+# Check if all components are working
+nether --version                    # Should show v1.0.0
+subfinder -version                  # Should show subfinder version
+go version                          # Should show Go version
+
+# Test with a simple scan
+nether sub example.com
+
+# Force fresh scan if network issues
+nether sub example.com --rescan
+```
+
+### Permission Issues
+```bash
+# If you get permission errors during installation:
+sudo curl -sSL https://raw.githubusercontent.com/amoz0x/nether/main/install.sh | sudo bash
+
+# Or install to user directory instead:
+mkdir -p ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"
+# Then modify install script to use ~/.local/bin instead of /usr/local/bin
 ```
 
 ## 📄 License
